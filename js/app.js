@@ -1,51 +1,116 @@
-$(function() {
+// $(function(){
+	
 
-$('#query').focus();
-
-
-
-function showResults(results) {
-	var statusHTML = "<ul>";
-	$.each(results, function(index, value){
-			statusHTML += "<li>" + value.snippet.title + "</li>";
-			statusHTML += "<ul class='more-info'> <li>" + value.snippet.description + "</li>";
-			statusHTML += "<li class= 'thumbnail'> <a href='http://www.youtube.com/watch?v=" + value.id.videoId + "' target=_blank> <img src='" + value.snippet.thumbnails.medium.url + "'alt='thumbnail'> </a> </li>"
-			statusHTML += "</ul>";
-	}); //End each
-	statusHTML += "</ul>";
-	$('#search-results').html(statusHTML);
-}; //End showResults
+/* The user can look up a genre and hit submit
+========================================================*/
 
 
-function getRequest (searchTerm) {
-	var url = "https://www.googleapis.com/youtube/v3/search";
-	var params = {
-		part : 'id,snippet',
-		key : "AIzaSyBXRNgdiVy09x47yBxaUNGbwDFdb5EblvQ",
-		maxResults : 10,
-		q : searchTerm
-	};
 
-	$.getJSON(url, params, function(data){
-		showResults(data.items);
-		console.log(data);
-	});//End getJSON
+/* When the user clicks on a genre, 
+a list of songs should get populated
+========================================================*/
+var scTracks = [];
+var songPosition = 0;
+var currentSound = '';
+
+
+/* With Controls/functions to
+   stop, play and go to the next song in the playlist
+========================================================*/
+function scStreamNext() {
+	if(songPosition <= scTracks.length) {
+		scStopCurrentStream();
+		songPosition++
+		scStream(songPosition);
+	} else {
+		scStopCurrentStream();
+		songPosition = 0;
+		scStream(songPosition);
+	}
+} //End scStreamNext()
+
+
+function scStopCurrentStream() {
+		currentSound.stop();
+} //End scStopCurrentStream()
+
+
+
+function scStream(songPosition) {
+	SC.stream(scTracks[songPosition].stream_url, function(sound) {
+				currentSound = sound;
+				currentSound.play({
+					onfinish: function() {
+						scNextStream();
+					} //End onfinish
+				}); //End play() 
+			}); //End callback function of SC.stream
+}//End scSTream
+
+
+
+/* The playlist gets initialized 
+   and the first song should start playing
+========================================================*/
+function initializePlaylist() {
+	SC.initialize({
+	  client_id: '827d90477e86eb01e3dc6345c6272228'
+	});
+	scStopCurrentStream();
+	scStream(0);
+} //End initializePlaylist
+
+
+
+
+/* AJAX request gets made when user
+   submits form with the genre they want 
+========================================================*/
+function getPlaylist (playlistID, onFirstMusicLoad) {
+	$.ajax({
+		url: "https://api.soundcloud.com/playlists/" + playlistID + ".json?client_id=827d90477e86eb01e3dc6345c6272228",
+		dataType: "json",
+		type : "GET"
+	})
+	.done(function(response){
+		//reset scTracks whenever new playlist is received
+		scTracks.length = 0;
+
+		scTracks = response.tracks;
+		initializePlaylist();
+		
+		console.log(response);
+		
+	});//End done
 } //End getRequest
+
 
 
 
 $("form#search-term").submit(function(event){
 	event.preventDefault();
 	var query = $("#query").val();
-	getRequest(query);
+	getPlaylist(query);
 
 }); //End submit
-	
+
+
+/*Adding event listeners to the buttons
+========================================================*/
+$('.next').on('click', function(){
+	scStopCurrentStream();
+	scStreamNext();
+}); //End on click next
+
+
+$('.play').on('click', function(){
+	scStream(songPosition);
+}); //End on click play
+
+$('.stop').on('click', function(){
+	scStopCurrentStream();
+}); //End on click stop
 
 
 
-
-
-
-
-}); //End ready
+// });//End ready
