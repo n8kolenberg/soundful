@@ -9,19 +9,30 @@
 <body>
 <div class="wrapper">
 	<div class="searchBar">
-		<form id="search-term">
+		<!-- <form id="search-term">
 			<input type="text" id="query">
 			<input type="submit">
-		</form>
-		<button class="play">Play</button>
-		<button class="pause">Pause</button>
-		<button class="stop">Stop</button>
-		<button class="next">Next</button>
+		</form> -->
+		
+		<ul>
+			<li class="genre">Ambient</li>
+			<li class="genre">Funk</li>
+			<li class="genre">Rock</li>
+			<li class="genre">Rockfunk</li>
+			<li class="genre">Chill</li>
+		</ul>
+
+	<ul class="playButtons">
+		<li><button class="previous">Prev</button></li>
+		<li><button class="play">Play</button></li>
+		<li><button class="pause">Pause</button></li>
+		<li><button class="stop">Stop</button></li>
+		<li><button class="next">Next</button></li>
+	</ul>
 
 	</div>
 		
-	<div id="search-results">
-		<ul></ul>
+	<div id="playlistResults">
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

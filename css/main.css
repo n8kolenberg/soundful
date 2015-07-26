@@ -16,23 +16,14 @@ body {
 }
 
 
-.searchBar {
-	margin: 20px auto;
-	display: flex;
-	display: -webkit-flex;
-	-webkit-align-items: center;
-	align-items: center;
-	-webkit-justify-content: center;
-	justify-content: center;
-}
-
-#search-term {
+div {
+	display: inline-block;
 
 }
 
-#search-term > input[type="text"] {
-	min-width: 400px;
-	border-radius: 7px;
+.genre {
+	border: 1px solid rgba(255, 60, 0, 1);
+	border-radius: 50px;
 }
 
 ul {

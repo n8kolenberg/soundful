@@ -31,6 +31,17 @@ function scStreamNext() {
 	}
 } //End scStreamNext()
 
+function scStreamPrev() {
+	if(songPosition == 0) {
+		scStopCurrentStream();
+		scStream(songPosition);
+	} else {
+		scStopCurrentStream();
+		songPosition--;
+		scStream(songPosition);
+	}
+} //End scStreamPrev()
+
 
 function scStopCurrentStream() {
 		currentSound.stop();
@@ -91,7 +102,13 @@ function getPlaylist (playlistID) {
 		scTracks.length = 0;
 		scTracks = response.tracks;
 		initializePlaylist();
-		
+
+		var statusHTML = "<ul>";
+		$.each(response.tracks, function(i, track){
+			statusHTML = "<li>" + scTracks[i].title + "</li>";
+		}) //End $.each
+		statusHTML = "</ul>";
+		$('#playlistResults').html(statusHTML);
 		console.log(response);
 		
 	});//End done
@@ -100,13 +117,12 @@ function getPlaylist (playlistID) {
 
 
 
-$("form#search-term").submit(function(event){
-	event.preventDefault();
+$("li.genre").on('click', function(){
 	if(currentSound.playState) {
-		getPlaylist(query.val());
+		getPlaylist($(this).text());
 		scStopCurrentStream();
 	} else {
-		getPlaylist(query.val());
+		getPlaylist($(this).text());
 	}
 
 }); //End submit
@@ -114,6 +130,11 @@ $("form#search-term").submit(function(event){
 
 /*Adding event listeners to the buttons
 ========================================================*/
+$('.previous').on('click', function(){
+	scStopCurrentStream();
+	scStreamPrev();
+}); //End on click next
+
 $('.next').on('click', function(){
 	scStopCurrentStream();
 	scStreamNext();
