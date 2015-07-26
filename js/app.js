@@ -13,15 +13,16 @@ a list of songs should get populated
 var scTracks = [];
 var songPosition = 0;
 var currentSound = '';
+var query = $("#query");
 
 
 /* With Controls/functions to
    stop, play and go to the next song in the playlist
 ========================================================*/
 function scStreamNext() {
-	if(songPosition <= scTracks.length) {
+	if(songPosition < scTracks.length - 1) {
 		scStopCurrentStream();
-		songPosition++
+		songPosition++;
 		scStream(songPosition);
 	} else {
 		scStopCurrentStream();
@@ -55,7 +56,7 @@ function scStream(songPosition) {
 				currentSound = sound;
 				currentSound.play({
 					onfinish: function() {
-						scNextStream();
+						scStreamNext();
 					} //End onfinish
 				}); //End play() 
 			}); //End callback function of SC.stream
@@ -101,8 +102,12 @@ function getPlaylist (playlistID) {
 
 $("form#search-term").submit(function(event){
 	event.preventDefault();
-	var query = $("#query").val();
-	getPlaylist(query);
+	if(currentSound.playState) {
+		getPlaylist(query.val());
+		scStopCurrentStream();
+	} else {
+		getPlaylist(query.val());
+	}
 
 }); //End submit
 
