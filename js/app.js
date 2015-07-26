@@ -1,5 +1,6 @@
 // $(function(){
 	
+$('input[type="text"]').focus();
 
 /* The user can look up a genre and hit submit
 ========================================================*/
@@ -34,6 +35,19 @@ function scStopCurrentStream() {
 		currentSound.stop();
 } //End scStopCurrentStream()
 
+function scTogglePause() {
+	currentSound.togglePause();
+}
+
+
+function musicPauseAndPlay() {
+	if(currentSound.paused) {
+		scTogglePause();
+	} else {
+		scTogglePause()
+	}
+
+}
 
 
 function scStream(songPosition) {
@@ -56,7 +70,6 @@ function initializePlaylist() {
 	SC.initialize({
 	  client_id: '827d90477e86eb01e3dc6345c6272228'
 	});
-	scStopCurrentStream();
 	scStream(0);
 } //End initializePlaylist
 
@@ -66,7 +79,7 @@ function initializePlaylist() {
 /* AJAX request gets made when user
    submits form with the genre they want 
 ========================================================*/
-function getPlaylist (playlistID, onFirstMusicLoad) {
+function getPlaylist (playlistID) {
 	$.ajax({
 		url: "https://api.soundcloud.com/playlists/" + playlistID + ".json?client_id=827d90477e86eb01e3dc6345c6272228",
 		dataType: "json",
@@ -75,7 +88,6 @@ function getPlaylist (playlistID, onFirstMusicLoad) {
 	.done(function(response){
 		//reset scTracks whenever new playlist is received
 		scTracks.length = 0;
-
 		scTracks = response.tracks;
 		initializePlaylist();
 		
@@ -104,8 +116,13 @@ $('.next').on('click', function(){
 
 
 $('.play').on('click', function(){
-	scStream(songPosition);
+	musicPauseAndPlay();
 }); //End on click play
+
+$('.pause').on('click', function(){
+	musicPauseAndPlay();
+}); //End on click stop
+
 
 $('.stop').on('click', function(){
 	scStopCurrentStream();
