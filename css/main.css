@@ -1,0 +1,40 @@
+* {
+	box-sizing: border-box;
+	/*border: 1px indianred solid;*/
+}
+
+
+body {
+	/*background-color: indianred;*/
+}
+
+.wrapper {
+	width: 100%;
+	min-height: 720px;
+	height: 100%;
+	position: relative;
+}
+
+
+.searchBar {
+	margin: 20px auto;
+	display: flex;
+	display: -webkit-flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+#search-term {
+
+}
+
+#search-term > input[type="text"] {
+	min-width: 400px;
+	border-radius: 7px;
+}
+
+ul {
+	list-style: none;
+}
