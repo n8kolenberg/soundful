@@ -109,7 +109,7 @@ function getPlaylist (tag) {
 		var statusHTML = "<ul>";
 		$.each(response, function(i, value){
 			scTracks.push(value);
-			statusHTML += "<li class='tracks'>" + scTracks[i].title + " Uploaded by: " + scTracks[i].user.username + "</li>";
+			statusHTML += "<li class='tracks'>" + scTracks[i].title +  " Uploaded by: " + scTracks[i].user.username + "</li>";
 		}) //End $.each
 		statusHTML += "</ul>";
 		$('#playlist p').html(statusHTML).fadeIn();
