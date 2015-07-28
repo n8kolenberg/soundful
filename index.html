@@ -8,40 +8,42 @@
 </head>
 <body>
 <div class="wrapper">
-	<div class="searchBar">
-		<!-- <form id="search-term">
-			<input type="text" id="query">
-			<input type="submit">
-		</form> -->
-		
-		<ul>
-			<li class="genre">Ambient</li>
-			<li class="genre">Funk</li>
-			<li class="genre">Rock</li>
-			<li class="genre">Rockfunk</li>
-			<li class="genre">Chill</li>
-		</ul>
 
-	<ul class="playButtons">
-		<li><button class="previous">Prev</button></li>
-		<li><button class="play">Play</button></li>
-		<li><button class="pause">Pause</button></li>
-		<li><button class="stop">Stop</button></li>
-		<li><button class="next">Next</button></li>
-	</ul>
+	<section class="header">
+		<header>
+			<h1>Search for a song by tag:</h1>
+		</header>
+	</section>	
+	
+	<section class="chooseGenre">
+		<div class="genres">
+			<form id="search-term">
+				<input type="text" id="query">
+				<input type="submit">
+			</form>
 
-	</div>
-		
-	<div id="playlistResults">
-	</div>
+		</div>
+	</section>
+
+	<section class="playlistResults">	
+		<div id="playlist">
+			<p class="hide">This is where the results will go</p>
+			<ul class="playButtons hide">
+				<li><button class="previous"><<</button></li>
+				<li><button class="play">></button></li>
+				<li><button class="pause">||</button></li>
+				<li><button class="stop">Stop</button></li>
+				<li><button class="next">>></button></li>
+			</ul>
+		</div>
+	</section>
+
+</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
 	<script src="js/soundmanager2/script/soundmanager2-jsmin.js"></script>
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
-
-
 	<script src="js/app.js"></script>
-</div>
+
 </body>
 </html>

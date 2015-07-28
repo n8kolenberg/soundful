@@ -5,27 +5,94 @@
 
 
 body {
-	/*background-color: indianred;*/
+	background-color: rgba(28, 28, 31, 1);
 }
+
+
 
 .wrapper {
 	width: 100%;
 	min-height: 720px;
 	height: 100%;
 	position: relative;
+	
 }
+
+
+.header {
+	height: 100%;
+	color: white;
+	text-align: center;
+}
+
+
+section.chooseGenre {
+	height: 100%;
+	text-align: center;
+}
+
 
 
 div {
-	display: inline-block;
+	display: block;
 
 }
+
+button li{
+	display: inline-block;
+}
+
+#playlistResults {
+	height: 300px;
+}
+
 
 .genre {
 	border: 1px solid rgba(255, 60, 0, 1);
 	border-radius: 50px;
+	color: white;
+	padding: 20px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+
+#playlist p {
+	color: white;
+	text-align: center;
+}
+
+
+ul.playButtons {
+	text-align: center;
+}
+
+
+.playButtons > li {
+	display: inline-block;
+}
+
+
+button {
+	background-color: transparent;
+	border: 1px solid rgba(255, 60, 0, 0.8);
+	border-radius: 50px;
+	padding: 15px;
+	margin-left: 5px;
+	color: rgba(255, 60, 0, 1);
+	outline: none;
+}
+
+
+.playing {
+	background-color: rgba(255, 60, 0, 0.8);
 }
 
 ul {
 	list-style: none;
+}
+
+
+.hide {
+	display: none;
 }
