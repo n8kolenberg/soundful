@@ -5,6 +5,12 @@
 ========================================================*/
 
 
+/* TODO: 
+
+2. Need to add uploader of song with link and soundcloud logo
+
+
+
 
 /* When the user clicks on a genre, 
 a list of songs should get populated
@@ -12,7 +18,10 @@ a list of songs should get populated
 var scTracks = [];
 var songPosition = 0;
 var currentSound = '';
+var $searchField = $('#query');
+var $submitBtn = $('#submit');
 
+$submitBtn.val("Get songs");
 
 /* With Controls/functions to
    stop, play and go to the next song in the playlist
@@ -96,7 +105,7 @@ function initializePlaylist() {
 ========================================================*/
 function getPlaylist (tag) {
 	$.ajax({
-		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags="+tag+"&limit=20",
+		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags="+tag+"&limit=30",
 		
 		//https://api.soundcloud.com/playlists/" + playlistID + ".json?client_id=827d90477e86eb01e3dc6345c6272228
 		dataType: "json",
@@ -109,15 +118,26 @@ function getPlaylist (tag) {
 		var statusHTML = "<ul>";
 		$.each(response, function(i, value){
 			scTracks.push(value);
-			statusHTML += "<li class='tracks'>" + scTracks[i].title +  " Uploaded by: " + scTracks[i].user.username + "</li>";
+			statusHTML += "<li class='tracks'>" + scTracks[i].title + "</li>";
 		}) //End $.each
 		statusHTML += "</ul>";
-		$('#playlist p').html(statusHTML).fadeIn();
+
+		//We'll fade out the old playlist
+		//and fade in the new one
+		$('#playlist p').fadeOut(function(){
+			$(this).html(statusHTML).fadeIn();
+			//This adds the CSS to the first song that will play
+			$("#playlist").find("li.tracks:eq(0)").addClass('playing');
+		}); 
+
 		$('ul.playButtons').fadeIn();
 		initializePlaylist();
 
-		//This adds the CSS to the first song that will play
-		$("#playlist").find("li:eq(0)").addClass('playing'); //NEED TO ADD .FIND for FASTER PERFORMANCE
+		//Once everything is loaded, enable the inputs
+		//And reset the submit button's value
+		$searchField.prop("disabled", false);
+		$submitBtn.attr("disabled", false).val("Get songs");
+		
 		console.log(response);
 		
 	});//End done
@@ -129,9 +149,13 @@ function getPlaylist (tag) {
 =========================================================*/
 $("#search-term").on('submit', function(event){
 	event.preventDefault();
+
+	$searchField.prop("disabled", true);
+	$submitBtn.attr("disabled", true).val("Getting songs..");
+
 	if(currentSound.playState) {
-		getPlaylist($('#query').val());
 		scStopCurrentStream();
+		getPlaylist($('#query').val());
 	} else {
 		getPlaylist($('#query').val());
 	}
@@ -170,10 +194,12 @@ $('.stop').on('click', function(){
 
 /*When a user double clicks on a song - it will play
 ========================================================*/
-$('#playlist p').on('dblclick', 'ul li', function(event){
+$('#playlist p').on('dblclick', 'ul li.tracks', function(event){
 	scStopCurrentStream();
-	scStream($(this).index());
+	songPosition = $(this).index();
+	scStream(songPosition);
 }); //End on click
+
 
 
 
