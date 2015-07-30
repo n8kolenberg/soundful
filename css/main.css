@@ -1,23 +1,15 @@
+
+/*=============================
+  General
+==============================*/
 * {
 	box-sizing: border-box;
-	/*border: 1px indianred solid;*/
+	border: 1px indianred solid;
 }
-
 
 body {
-	background-color: rgba(28, 28, 31, 1);
+	background-color: rgba(28,28,31,1);
 }
-
-
-
-.wrapper {
-	width: 100%;
-	min-height: 720px;
-	height: 100%;
-	position: relative;
-	
-}
-
 
 .header {
 	height: 100%;
@@ -25,74 +17,150 @@ body {
 	text-align: center;
 }
 
+#query,
+#submit {
+	color: rgba(28,28,31,1);
+}
 
-section.chooseGenre {
+.wrapper {
+	width: 100%;
+	min-height: 800px;
 	height: 100%;
-	text-align: center;
-}
-
-
-
-div {
-	display: block;
-
-}
-
-button li{
-	display: inline-block;
-}
-
-#playlistResults {
-	height: 300px;
-}
-
-
-.genre {
-	border: 1px solid rgba(255, 60, 0, 1);
-	border-radius: 50px;
-	color: white;
-	padding: 20px;
-	display: inline-block;
-	cursor: pointer;
-}
-
-
-#playlist p {
-	color: white;
-	text-align: center;
-}
-
-
-ul.playButtons {
-	text-align: center;
-}
-
-
-.playButtons > li {
-	display: inline-block;
-}
-
-
-button {
-	background-color: transparent;
-	border: 1px solid rgba(255, 60, 0, 0.8);
-	border-radius: 50px;
-	padding: 15px;
-	margin-left: 5px;
-	color: rgba(255, 60, 0, 1);
-	outline: none;
-}
-
-
-.playing {
-	background-color: rgba(255, 60, 0, 0.8);
+	position: relative;
 }
 
 ul {
 	list-style: none;
 }
 
-
 .hide {
 	display: none;
 }
+
+/*=============================
+  Search field
+==============================*/
+
+input[type="text"] {
+	outline: none;
+}
+
+
+
+
+
+/*=============================
+  Playlist
+==============================*/
+
+#playlist {
+	height: 300px;
+	width: 60%;
+	float: left;
+}
+
+
+#playlist p {
+	color: white;
+	text-align: left;
+}
+
+#playlist p li {
+	padding: 7px;
+}
+
+.playing {
+	background-color: rgba(255, 60, 0, 0.8);
+}
+
+
+/*=============================
+  PlayButtons
+==============================*/
+
+#playlist {
+	height: 100px;
+}
+
+
+ul.playButtons {
+	text-align: center;
+	height: 100px;
+}
+
+button {
+	background-color: transparent;
+	border: 1px solid rgba(255, 60, 0, 0.8);
+	border-radius: 50px;
+	padding: 20px;
+	font-size: 20px;
+	margin: 10px 5px;
+	color: white;
+	outline: none;
+	transition: all 200ms;
+}
+
+button:hover {
+	color: rgba(255, 60, 0, 0.8);
+	border: 1px solid white;
+}
+
+button:active {
+	color: rgba(255, 60, 0, 0.3);
+	border: 1px solid grey;
+}
+
+.playButtons > li {
+	display: inline-block;
+}
+
+
+button.play {
+	font-size: 35px;
+}
+
+/*=============================
+  Uploader info
+==============================*/
+
+
+
+/*=============================
+  SoundCloud Logo
+==============================*/
+
+.icon-soundcloud {
+	font-size: 50px;
+	color: lightgrey;
+	transition: all 100ms;
+}
+
+.icon-soundcloud:hover {
+	color: rgba(255, 60, 0, 0.8);
+}
+
+.soundCloudLogo {
+	position: ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

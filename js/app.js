@@ -1,5 +1,6 @@
-// $(function(){
+$(function(){
 	
+$('input[type="text"]').focus();
 
 /* The user can look up a genre and hit submit
 ========================================================*/
@@ -20,7 +21,6 @@ var songPosition = 0;
 var currentSound = '';
 var $searchField = $('#query');
 var $submitBtn = $('#submit');
-
 $submitBtn.val("Get songs");
 
 /* With Controls/functions to
@@ -56,6 +56,8 @@ function scStopCurrentStream() {
 
 function scTogglePause() {
 	currentSound.togglePause();
+	//Toggles the play button to allow user to pause and vice versa
+	$(".play").find('span').removeClass().addClass("icon-play-2");
 }
 
 
@@ -82,6 +84,8 @@ function scStream(songPosition) {
 				$("#playlist").find("li").removeClass('playing');
 				$("#playlist").find("li:eq(" + songPosition + ")").addClass('playing');
 				
+				//Toggles the play button to allow user to pause and vice versa
+				$(".play").find('span').removeClass().addClass("icon-pause-2");
 			}); //End callback function of SC.stream
 }//End scSTream
 
@@ -167,29 +171,22 @@ $("#search-term").on('submit', function(event){
 
 /*Adding event listeners to the buttons
 ========================================================*/
-$('.previous').on('click', function(){
+$('.previous').on('click', function() {
 	scStopCurrentStream();
 	scStreamPrev();
 }); //End on click next
 
-$('.next').on('click', function(){
+$('.next').on('click', function() {
 	scStopCurrentStream();
 	scStreamNext();
 }); //End on click next
 
 
-$('.play').on('click', function(){
+//Toggle play button to pause and back
+$('.play').on('click', function() {	
 	musicPauseAndPlay();
 }); //End on click play
 
-$('.pause').on('click', function(){
-	musicPauseAndPlay();
-}); //End on click stop
-
-
-$('.stop').on('click', function(){
-	scStopCurrentStream();
-}); //End on click stop
 
 
 /*When a user double clicks on a song - it will play
@@ -203,4 +200,4 @@ $('#playlist p').on('dblclick', 'ul li.tracks', function(event){
 
 
 
-// });//End ready
+});//End ready
