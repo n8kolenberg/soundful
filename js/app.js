@@ -64,6 +64,8 @@ function scTogglePause() {
 function musicPauseAndPlay() {
 	if(currentSound.paused) {
 		scTogglePause();
+		//Toggles the play button to allow user to pause and vice versa
+		$(".play").find('span').removeClass().addClass("icon-pause-2");
 	} else {
 		scTogglePause()
 	}
