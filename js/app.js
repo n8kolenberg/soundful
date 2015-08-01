@@ -211,7 +211,7 @@ function addSongMetaData (songPosition) {
 	songMetaData += "<li> Uploaded by: " + scTracks[songPosition].user.username + "</li>";
 	songMetaData += "</ul";
 
-	$('.scLogo').attr("href", scTracks[songPosition].user.permalink_url);
+	$('.scLogo').attr("href", scTracks[songPosition].user.permalink_url).fadeIn(170);
 	$('#uploader').fadeOut(100, function() {
 		$(this).html(songMetaData).fadeIn(170);
 	});
@@ -241,14 +241,17 @@ $('.playButtonsWrapper').sticky({
 }).on('sticky-start', function(){
 	$(this).css('background-color', 'rgba(28, 28, 31, 1)');
 }).on('sticky-end', function(){
-	$(this).css('background-color', 'transparent')
+	$(this).css('background-color', 'transparent');
+
 });
 
-
-$('.uploader-results').sticky({
+$('#uploader').sticky({
 	topSpacing: 100
 });
 
+$('.soundCloudLogo').sticky({
+	topSpacing: 330
+});
 
 
 
