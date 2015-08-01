@@ -17,11 +17,13 @@
 				<input type="text" id="query">
 				<input type="submit" id="submit">
 			</form>
-			<ul class="playButtons hide">
-				<li><button class="previous"><span class="icon-to-start-2"></span></button></li>
-				<li><button class="play"><span class="icon-play-2"></span></button></li>
-				<li><button class="next"><span class="icon-to-end-2"></span></button></li>
-			</ul>
+			<div class="playButtonsWrapper hide">
+				<ul class="playButtons">
+					<li><button class="previous"><span class="icon-to-start-2"></span></button></li>
+					<li><button class="play"><span class="icon-play-2"></span></button></li>
+					<li><button class="next"><span class="icon-to-end-2"></span></button></li>
+				</ul>
+			</div>
 		</header>
 	</section>	
 	
@@ -34,16 +36,13 @@
 
 
 	<section class="uploader-results">
-		<div id="uploader">
+		<div id="uploader" class="hide">
 			
 		</div>
 
 		<div class="soundCloudLogo">
-			<span class="icon-soundcloud"></span>
+			<a href="http://www.soundcloud.com" class="scLogo" target="_blank"><span class="icon-soundcloud"></span></a>
 		</div>	
-
-
-
 	</section>
 
 
@@ -54,12 +53,11 @@
 
 
 
-
-
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="js/soundmanager2/script/soundmanager2-jsmin.js"></script>
 	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/pause.js"></script>
 	<script src="js/app.js"></script>
 
 </body>

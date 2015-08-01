@@ -1,15 +1,9 @@
-$(function(){
+// $(function(){
 	
 $('input[type="text"]').focus();
 
 /* The user can look up a genre and hit submit
 ========================================================*/
-
-
-/* TODO: 
-
-2. Need to add uploader of song with link and soundcloud logo
-
 
 
 
@@ -64,10 +58,14 @@ function scTogglePause() {
 function musicPauseAndPlay() {
 	if(currentSound.paused) {
 		scTogglePause();
+		//Uses pause.js library to pause and resume progress bar animation
+		$('.playing').resume()
 		//Toggles the play button to allow user to pause and vice versa
 		$(".play").find('span').removeClass().addClass("icon-pause-2");
 	} else {
 		scTogglePause()
+		//Uses pause.js library to pause and resume progress bar animation
+		$('.playing').pause()
 	}
 
 }
@@ -88,6 +86,8 @@ function scStream(songPosition) {
 				
 				//Toggles the play button to allow user to pause and vice versa
 				$(".play").find('span').removeClass().addClass("icon-pause-2");
+				addSongMetaData(songPosition);
+
 			}); //End callback function of SC.stream
 }//End scSTream
 
@@ -101,6 +101,7 @@ function initializePlaylist() {
 	  client_id: '827d90477e86eb01e3dc6345c6272228'
 	});
 	scStream(0);
+	addSongMetaData(0);
 } //End initializePlaylist
 
 
@@ -118,8 +119,9 @@ function getPlaylist (tag) {
 		type : "GET"
 	})
 	.done(function(response){
-		//reset scTracks whenever new playlist is received
+		//reset scTracks and songPosition whenever new playlist is received
 		scTracks.length = 0;
+		songPosition = 0;
 
 		var statusHTML = "<ul>";
 		$.each(response, function(i, value){
@@ -134,9 +136,11 @@ function getPlaylist (tag) {
 			$(this).html(statusHTML).fadeIn();
 			//This adds the CSS to the first song that will play
 			$("#playlist").find("li.tracks:eq(0)").addClass('playing');
+			//To start the progressbar for the first song of a new playlist
+			songProgress(0);
 		}); 
 
-		$('ul.playButtons').fadeIn();
+		$('.playButtonsWrapper').fadeIn();
 		initializePlaylist();
 
 		//Once everything is loaded, enable the inputs
@@ -200,6 +204,56 @@ $('#playlist p').on('dblclick', 'ul li.tracks', function(event){
 }); //End on click
 
 
+//Function to add the uploader information of the song that's playing
+function addSongMetaData (songPosition) {
+	var songMetaData = "<ul>";
+	songMetaData += "<li> <img src='" + scTracks[songPosition].user.avatar_url + "' class='albumArt' alt='Album art'></li>";
+	songMetaData += "<li> Uploaded by: " + scTracks[songPosition].user.username + "</li>";
+	songMetaData += "</ul";
+
+	$('.scLogo').attr("href", scTracks[songPosition].user.permalink_url);
+	$('#uploader').fadeOut(100, function() {
+		$(this).html(songMetaData).fadeIn(170);
+	});
+	// Resets the songProgress bar
+	$(".playing").finish();
+	$(".playing").css("background-position", "100% 0%");
+	
+	// Calls the songProgress method to start tracking progress
+	songProgress(songPosition);
+}
 
 
-});//End ready
+function songProgress (i) {
+	var songTime = scTracks[i].duration; //time in milliseconds
+	$("li.playing").animate({
+		"background-position": "0%"
+	}, songTime, "linear");
+}
+
+
+
+
+/* UI additions 
+========================================================*/
+$('.playButtonsWrapper').sticky({
+	topSpacing: 0
+}).on('sticky-start', function(){
+	$(this).css('background-color', 'rgba(28, 28, 31, 1)');
+}).on('sticky-end', function(){
+	$(this).css('background-color', 'transparent')
+});
+
+
+$('.uploader-results').sticky({
+	topSpacing: 100
+});
+
+
+
+
+
+
+
+
+// });//End ready
