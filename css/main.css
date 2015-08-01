@@ -11,10 +11,29 @@ body {
 	background-color: rgba(28,28,31,1);
 }
 
+
+@font-face {
+    font-family: Komoda;
+    src: url('Komoda/Komoda.otf');
+}
+
+
 .header {
 	height: 100%;
 	color: white;
 	text-align: center;
+}
+
+.header h1 {
+	font-family: Komoda;
+	font-size: 60px;
+	letter-spacing: 4px;
+	border: 3px solid whitesmoke;
+	width: 175px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 40px;
+	padding-top: 5px;
 }
 
 #query,
@@ -107,7 +126,7 @@ ul.playButtons {
 
 button {
 	background-color: transparent;
-	border: 1px solid rgba(255, 60, 0, 0.8);
+	border: 3px solid rgba(255, 60, 0, 0.8);
 	border-radius: 50px;
 	padding: 20px;
 	font-size: 20px;
@@ -119,12 +138,12 @@ button {
 
 button:hover {
 	color: rgba(255, 60, 0, 0.8);
-	border: 1px solid white;
+	border: 3px solid white;
 }
 
 button:active {
 	color: rgba(255, 60, 0, 0.3);
-	border: 1px solid grey;
+	border: 3px solid grey;
 }
 
 .playButtons > li {
@@ -172,6 +191,7 @@ button.play {
 .soundCloudLogo {
 	display: inline-block;
 	margin: auto;
+	margin-top: 10px;
 	width: 100%;
 	text-align: center;
 }
