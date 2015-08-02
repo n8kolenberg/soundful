@@ -11,8 +11,6 @@ setInterval(function() {
 
 
 
-
-
 /* When the user clicks on a genre, 
 a list of songs should get populated
 ========================================================*/
@@ -22,6 +20,7 @@ var currentSound = '';
 var $searchField = $('#query');
 var $submitBtn = $('#submit');
 $submitBtn.val("Get songs");
+
 
 /* With Controls/functions to
    stop, play and go to the next song in the playlist
@@ -118,7 +117,7 @@ function initializePlaylist() {
 ========================================================*/
 function getPlaylist (tag) {
 	$.ajax({
-		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags=" + tag + "&limit=50",
+		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags=" + tag + "&limit=100",
 		
 		//https://api.soundcloud.com/playlists/" + playlistID + ".json?client_id=827d90477e86eb01e3dc6345c6272228
 		dataType: "json",
@@ -129,33 +128,37 @@ function getPlaylist (tag) {
 		scTracks.length = 0;
 		songPosition = 0;
 
-		var statusHTML = "<ul>";
-		$.each(response, function(i, value){
-			scTracks.push(value);
-			statusHTML += "<li class='tracks'>" + scTracks[i].title + "</li>";
-		}) //End $.each
-		statusHTML += "</ul>";
+		if (response.length) {
 
-		//We'll fade out the old playlist
-		//and fade in the new one
-		$('#playlist p').fadeOut(function(){
-			$(this).html(statusHTML).fadeIn();
-			//This adds the CSS to the first song that will play
-			$("#playlist").find("li.tracks:eq(0)").addClass('playing');
-			//To start the progressbar for the first song of a new playlist
-			songProgress(0);
-		}); 
+			var statusHTML = "<ul>";
+			$.each(response, function(i, value){
+				//We're now going to filter out 50 streamable tracks and
+				//add them to scTracks
+				if (value.streamable !== false && scTracks.length < 51) {
+				scTracks.push(value);
 
-		$('.playButtonsWrapper').fadeIn();
-		initializePlaylist();
+				statusHTML += "<li class='tracks'>" + value.title + "</li>";
+			} 
+			}); //End $.each
+			statusHTML += "</ul>";
 
-		//Once everything is loaded, enable the inputs
-		//And reset the submit button's value
-		$searchField.prop("disabled", false);
-		$submitBtn.attr("disabled", false).val("Get songs");
-		
-		console.log(response);
-		
+			//We'll fade out the old playlist
+			//and fade in the new one
+			$('#playlist p').fadeOut(function(){
+				$(this).html(statusHTML).fadeIn();
+				//This adds the CSS to the first song that will play
+				$("#playlist").find("li.tracks:eq(0)").addClass('playing');
+				//To start the progressbar for the first song of a new playlist
+				songProgress(0);
+			}); 
+
+			$('.playButtonsWrapper').fadeIn();
+			initializePlaylist();
+			} 
+			//Once everything is loaded, enable the inputs
+			//And reset the submit button's value
+			$submitBtn.attr("disabled", false).val("Get songs");
+
 	}).fail( function(error) {
 		console.log(error);
 
@@ -164,7 +167,6 @@ function getPlaylist (tag) {
 	}
 	);//End fail
 } //End getRequest
-
 
 
 /* When the user submits a tag,
@@ -273,7 +275,7 @@ $('.soundCloudLogo').sticky({
 $('#mainLogo').hover(function(){
 	$(this).animate({
 		top: "10px",
-		left: "20px",
+		left: "40px",
 		fontSize: "60px",
 		width: "150px"
 	}, 700, function(){
