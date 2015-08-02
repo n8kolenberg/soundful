@@ -2,6 +2,16 @@ $(function(){
 	
 $('input[type="text"]').focus();
 
+//This changes the placeholder value showing users
+//examples of what they can search for
+var inputPlaceholder = ["Bob Marley", "Sway", "Folk Pop", "Dancehall", "Classic Rock", "Chill", "Ambient", "House", "Electronic Dance", "Folk", "Indie Rock", "Remix", "HipHop", "R&B", "Soul", "Funk", "Michael Jackson", "Rock", "Rolling Stones"];
+setInterval(function() {
+    $("input[type='text']").attr("placeholder", inputPlaceholder[inputPlaceholder.push(inputPlaceholder.shift())-1]);
+}, 3000);
+
+
+
+
 
 /* When the user clicks on a genre, 
 a list of songs should get populated
