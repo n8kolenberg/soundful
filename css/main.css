@@ -8,7 +8,19 @@
 }
 
 body {
-	background-color: rgba(28,28,31,1);
+	background: -webkit-linear-gradient(rgba(28, 28, 31, 0.1), rgba(28, 28, 31, 0.8)),
+	-webkit-linear-gradient(rgba(28, 28, 31, 0.5), rgba(28, 28, 31, 0.3)),
+	url('../img/recordsonwall_low.jpeg');
+	background-position: center center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	background-color: rgba(28, 28, 31, 1);
+	font-family: "Archivo Narrow", Helvetica, sans-serif;
+	letter-spacing: 1px;
 }
 
 
@@ -21,29 +33,39 @@ body {
 .header {
 	height: 100%;
 	color: white;
-	text-align: center;
 }
 
-.header h1 {
+#mainLogo {
 	font-family: Komoda;
-	font-size: 60px;
+	font-size: 100px;
 	letter-spacing: 4px;
 	border: 3px solid whitesmoke;
-	width: 175px;
-	margin: auto;
-	margin-top: 10px;
+	width: 220px;
+	height: 100%;
 	margin-bottom: 40px;
 	padding-top: 5px;
+	padding-left: 5px;
+	position: relative;
+	top: 500px;
+	left: 40%;
+	text-align: center;
+	display: inline-block;
+	overflow: auto;
 }
+
+#mainLogo a {
+	text-decoration: none;
+	color: whitesmoke;
+}
+
 
 #query,
 #submit {
-	color: rgba(28,28,31,1);
+	color: rgba(28, 28, 31, 1);
 }
 
 .wrapper {
 	width: 100%;
-	min-height: 800px;
 	height: 100%;
 }
 
@@ -64,11 +86,53 @@ ul {
   Search field
 ==============================*/
 
-input[type="text"] {
-	outline: none;
+.formWrapper {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+	margin-left: 70px;
+	top: -45px;
+	margin-bottom: -50px;
 }
 
 
+input[type="text"] {
+	outline: none;
+	border: 3px rgba(255, 60, 0, 0.4) solid;
+	border-radius: 10px;
+	background-color: rgba(28, 28, 31, 0.2);
+	color: green;
+	padding: 10px 40px 10px 20px;
+	font-size: 20px;
+	margin-bottom: 55px;
+}
+
+#search-term input {
+	color: whitesmoke;
+}
+
+#search-term input[type="submit"] {
+	color: whitesmoke;
+	border: 3px solid rgba(255, 20, 0, 0.5);
+	border-radius: 10px;
+	background-color: rgba(255, 60, 0, 0.7);
+	padding: 10px;
+	outline: none;
+	transition: all 100ms;
+}
+
+
+#search-term input[type="submit"]:hover {
+	color: whitesmoke;
+	background-color: rgba(255, 80, 0, 0.9);
+}
+
+
+#search-term input[type="submit"]:active {
+	color: grey;
+	background-color: rgba(255, 60, 0, 0.4);
+	border: 3px solid rgba(255, 60, 0, 0.4);
+}
 
 
 
@@ -93,6 +157,12 @@ input[type="text"] {
 	padding: 10px;
 	font-size: 20px;
 	border-bottom: 1px solid rgba(248, 248, 242, 0.2);
+	cursor: pointer;
+}
+
+
+#playlist p li:not(.playing):hover {
+	border-left: 2px solid rgba(248, 248, 242, 0.7);
 }
 
 .playing {
@@ -120,7 +190,6 @@ ul.playButtons {
 	text-align: center;
 	height: 100%;
 	margin: auto;
-	/*margin-top: 10px;*/
 }
 
 
@@ -186,6 +255,8 @@ button.play {
 
 .albumArt {
 	width: 150px;
+	border: 2px solid lightgrey;
+	border-radius: 10px;
 }
 
 .soundCloudLogo {

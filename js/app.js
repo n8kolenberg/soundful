@@ -1,10 +1,6 @@
-// $(function(){
+$(function(){
 	
 $('input[type="text"]').focus();
-
-/* The user can look up a genre and hit submit
-========================================================*/
-
 
 
 /* When the user clicks on a genre, 
@@ -112,7 +108,7 @@ function initializePlaylist() {
 ========================================================*/
 function getPlaylist (tag) {
 	$.ajax({
-		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags="+tag+"&limit=30",
+		url: "https://api.soundcloud.com/tracks.json?client_id=827d90477e86eb01e3dc6345c6272228&tags=" + tag + "&limit=50",
 		
 		//https://api.soundcloud.com/playlists/" + playlistID + ".json?client_id=827d90477e86eb01e3dc6345c6272228
 		dataType: "json",
@@ -150,18 +146,27 @@ function getPlaylist (tag) {
 		
 		console.log(response);
 		
-	});//End done
+	}).fail( function(error) {
+		console.log(error);
+
+		//Reset the submit button's value
+		$searchField.prop("disabled", false);
+		$submitBtn.attr("disabled", false).val("Get songs");
+	}
+	);//End fail
 } //End getRequest
 
 
-/* When the user clicks on a genre,
-   the Ajax call gets made and the playlist is populated
+
+/* When the user submits a tag,
+   the Ajax call gets made and the playlist of tracks 
+   is populated
 =========================================================*/
 $("#search-term").on('submit', function(event){
 	event.preventDefault();
 
-	$searchField.prop("disabled", true);
-	$submitBtn.attr("disabled", true).val("Getting songs..");
+	// $searchField.prop("disabled", true);
+	$submitBtn.val("Getting songs..");
 
 	if(currentSound.playState) {
 		scStopCurrentStream();
@@ -169,9 +174,7 @@ $("#search-term").on('submit', function(event){
 	} else {
 		getPlaylist($('#query').val());
 	}
-
 }); //End submit
-
 
 
 
@@ -224,6 +227,7 @@ function addSongMetaData (songPosition) {
 }
 
 
+//Function to break down the duration into steps for animating the song progress
 function songProgress (i) {
 	var songTime = scTracks[i].duration; //time in milliseconds
 	$("li.playing").animate({
@@ -234,16 +238,15 @@ function songProgress (i) {
 
 
 
-/* UI additions 
+/* UI additions s.a. using Sticky.js
 ========================================================*/
 $('.playButtonsWrapper').sticky({
 	topSpacing: 0
 }).on('sticky-start', function(){
-	$(this).css('background-color', 'rgba(28, 28, 31, 1)');
+	$(this).css('background-color', 'rgba(28, 28, 31, 0.6)');
 }).on('sticky-end', function(){
 	$(this).css('background-color', 'transparent');
-
-});
+}); //End sticky
 
 $('#uploader').sticky({
 	topSpacing: 100
@@ -253,10 +256,23 @@ $('.soundCloudLogo').sticky({
 	topSpacing: 330
 });
 
+//Main logo will go up once clicked on and the form will gain focus
+$('#mainLogo').hover(function(){
+	$(this).animate({
+		top: "10px",
+		left: "20px",
+		fontSize: "60px",
+		width: "150px"
+	}, 700, function(){
+		$('.instructions, #search-term').fadeIn(200, function(){
+		$('#query').focus();
+	})}//End nested animate function
+	); //End animate
+	
+}); //End on click
 
 
 
 
 
-
-// });//End ready
+});//End ready
