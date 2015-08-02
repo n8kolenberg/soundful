@@ -31,8 +31,10 @@ body {
 
 
 .header {
-	height: 100%;
+	height: 300px;
 	color: white;
+	position: relative;
+	top: 10px;
 }
 
 #mainLogo {
@@ -89,9 +91,10 @@ ul {
 .formWrapper {
 	display: inline-block;
 	text-align: center;
-	position: relative;
+	position: absolute;
 	margin-left: 70px;
-	top: -45px;
+	margin-top: -10px;
+	top: 30px;
 	margin-bottom: -50px;
 }
 
@@ -104,7 +107,7 @@ input[type="text"] {
 	color: green;
 	padding: 10px 40px 10px 20px;
 	font-size: 20px;
-	margin-bottom: 55px;
+	/*margin-bottom: 55px;*/
 }
 
 #search-term input {
@@ -230,6 +233,7 @@ button.play {
 
 .uploader-results {
 	width: 30%;
+	margin-top: 10px;
 	height: 100px;
 	display: inline-block;
 	float: left;
@@ -272,7 +276,6 @@ button.play {
 	width: 100%;
 	text-align: center;
 }
-
 
 
 .icon-soundcloud {
