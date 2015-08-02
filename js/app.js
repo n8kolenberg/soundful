@@ -252,7 +252,7 @@ $('.playButtonsWrapper').sticky({
 }); //End sticky
 
 $('#uploader').sticky({
-	topSpacing: 100
+	topSpacing: 110
 });
 
 $('.soundCloudLogo').sticky({
