@@ -243,7 +243,7 @@ button.play {
 }
 
 #uploader li {
-	display: inline-block;
+	display: block;
 	margin: 10px;
 /*	width: 100%;*/
 
@@ -259,17 +259,21 @@ button.play {
 	border-radius: 10px;
 }
 
-.soundCloudLogo {
-	display: inline-block;
-	margin: auto;
-	margin-top: 10px;
-	width: 100%;
-	text-align: center;
-}
+
 
 /*=============================
   SoundCloud Logo
 ==============================*/
+
+.soundCloudLogo {
+	display: inline-block;
+	margin: auto;
+	margin-top: 20px;
+	width: 100%;
+	text-align: center;
+}
+
+
 
 .icon-soundcloud {
 	font-size: 50px;

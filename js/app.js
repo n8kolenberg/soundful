@@ -150,7 +150,6 @@ function getPlaylist (tag) {
 		console.log(error);
 
 		//Reset the submit button's value
-		$searchField.prop("disabled", false);
 		$submitBtn.attr("disabled", false).val("Get songs");
 	}
 	);//End fail
@@ -210,14 +209,18 @@ $('#playlist p').on('dblclick', 'ul li.tracks', function(event){
 //Function to add the uploader information of the song that's playing
 function addSongMetaData (songPosition) {
 	var songMetaData = "<ul>";
-	songMetaData += "<li> <img src='" + scTracks[songPosition].user.avatar_url + "' class='albumArt' alt='Album art'></li>";
+	songMetaData += "<li> <a href='"+ scTracks[songPosition].user.permalink_url +"' target='_blank'>";
+	songMetaData += "<img src='" + scTracks[songPosition].user.avatar_url + "' class='albumArt' alt='Album art'></a></li>";
 	songMetaData += "<li> Uploaded by: " + scTracks[songPosition].user.username + "</li>";
+	songMetaData += "<li> On: " + scTracks[songPosition].created_at.slice(0, 10) + "</li>";
 	songMetaData += "</ul";
+
 
 	$('.scLogo').attr("href", scTracks[songPosition].user.permalink_url).fadeIn(170);
 	$('#uploader').fadeOut(100, function() {
 		$(this).html(songMetaData).fadeIn(170);
 	});
+
 	// Resets the songProgress bar
 	$(".playing").finish();
 	$(".playing").css("background-position", "100% 0%");
