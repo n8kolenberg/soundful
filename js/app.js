@@ -107,6 +107,8 @@ function initializePlaylist() {
 	});
 	scStream(0);
 	addSongMetaData(0);
+	//Stop the first song from playing
+	musicPauseAndPlay();
 } //End initializePlaylist
 
 
@@ -128,15 +130,14 @@ function getPlaylist (tag) {
 		scTracks.length = 0;
 		songPosition = 0;
 
-		if (response.length) {
-
-			var statusHTML = "<ul>";
+		
+		if (response.length) {	
+			var statusHTML = "<ul>";		
 			$.each(response, function(i, value){
 				//We're now going to filter out 50 streamable tracks and
 				//add them to scTracks
 				if (value.streamable !== false && scTracks.length < 51) {
 				scTracks.push(value);
-
 				statusHTML += "<li class='tracks'>" + value.title + "</li>";
 			} 
 			}); //End $.each
@@ -148,13 +149,23 @@ function getPlaylist (tag) {
 				$(this).html(statusHTML).fadeIn();
 				//This adds the CSS to the first song that will play
 				$("#playlist").find("li.tracks:eq(0)").addClass('playing');
-				//To start the progressbar for the first song of a new playlist
-				songProgress(0);
-			}); 
+				initializePlaylist();
+			}); //End fadeOut - fadeIn
 
 			$('.playButtonsWrapper').fadeIn();
-			initializePlaylist();
-			} 
+			
+
+			} else {
+				statusHTML += "<li>Wooops! Looks like your search didn't return any results! </li>";
+				statusHTML += "</ul>"
+				//We'll fade out the old playlist
+				//and fade in the error message
+				$('#playlist p').fadeOut(function(){
+				$(this).html(statusHTML).fadeIn();
+				
+			}); 
+			}//End if statement to check whether the response has a length 
+			
 			//Once everything is loaded, enable the inputs
 			//And reset the submit button's value
 			$submitBtn.attr("disabled", false).val("Get songs");
@@ -211,7 +222,7 @@ $('.play').on('click', function() {
 
 /*When a user double clicks on a song - it will play
 ========================================================*/
-$('#playlist p').on('dblclick', 'ul li.tracks', function(event){
+$('#playlist p').on('click', 'ul li.tracks', function(event){
 	scStopCurrentStream();
 	songPosition = $(this).index();
 	scStream(songPosition);
@@ -236,9 +247,10 @@ function addSongMetaData (songPosition) {
 	// Resets the songProgress bar
 	$(".playing").finish();
 	$(".playing").css("background-position", "100% 0%");
-	
+
 	// Calls the songProgress method to start tracking progress
 	songProgress(songPosition);
+
 }
 
 
@@ -274,10 +286,10 @@ $('.soundCloudLogo').sticky({
 //Main logo will go up once clicked on and the form will gain focus
 $('#mainLogo').hover(function(){
 	$(this).animate({
-		top: "10px",
-		left: "40px",
-		fontSize: "60px",
-		width: "150px"
+		top: "0px",
+		left: "30px",
+		fontSize: "80px",
+		width: "175px"
 	}, 700, function(){
 		$('.instructions, #search-term').fadeIn(200, function(){
 		$('#query').focus();
