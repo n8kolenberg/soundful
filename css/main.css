@@ -43,7 +43,6 @@ body {
 	letter-spacing: 4px;
 	border: 3px solid whitesmoke;
 	width: 220px;
-	height: 100%;
 	margin-top: 32px;
 	padding-top: 7px;
 	padding-left: 5px;
@@ -109,6 +108,7 @@ input[type="text"] {
 	color: green;
 	padding: 12px 100px 12px 20px;
 	font-size: 25px;
+	max-width: 300px;
 	/*margin-bottom: 55px;*/
 }
 
@@ -258,12 +258,9 @@ button.play {
 
 }
 
-.uploader-results {
-	display: inline-block;
-}
 
 .albumArt {
-	width: 170px;
+	width: 150px;
 	border: 2px solid lightgrey;
 	border-radius: 10px;
 }
@@ -294,55 +291,6 @@ button.play {
 }
 
 
-
-/*=============================
-  Don't overthink it Grid
-==============================*/
-
-.grid {
-  background: transparent;
-  margin: 0 0 20px 0;
-}
-
-.grid:after {
- 	content: "";
-  	display: table;
-  	clear: both;
-}
-
-[class*='col-'] {
-	float: left;
-	padding-right: 20px;
-}
-
-.col-1-4 {
-	width: 25%;
-}
-
-.col-2-4 {
-	width: 50%;
-}
-
-.col-3-5 {
-	width: 75%;
-}
-
-.col-4-4 {
-	width: 100%;
-}
-
-.module {
-	padding: 20px;
-}
-
-.grid [class*='col-']:last-of-type {
-	padding-right: 0;
-}
-
-
-.grid-pad {
-	padding: 20px 0 20px 20px;
-}
 
 
 

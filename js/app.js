@@ -130,9 +130,8 @@ function getPlaylist (tag) {
 		scTracks.length = 0;
 		songPosition = 0;
 
-		
-		if (response.length) {	
-			var statusHTML = "<ul>";		
+		var statusHTML = "<ul>";	
+		if (response.length) {		
 			$.each(response, function(i, value){
 				//We're now going to filter out 50 streamable tracks and
 				//add them to scTracks
@@ -153,16 +152,18 @@ function getPlaylist (tag) {
 			}); //End fadeOut - fadeIn
 
 			$('.playButtonsWrapper').fadeIn();
-			
-
+		
 			} else {
-				statusHTML += "<li>Wooops! Looks like your search didn't return any results! </li>";
+				statusHTML += "<li>Well this is embarrassing... Looks like your search didn't return any results! </li>";
+				statusHTML += "<li>Why don't you try searching for something else?</li>";
 				statusHTML += "</ul>"
-				//We'll fade out the old playlist
-				//and fade in the error message
+				//We'll fade out the old playlist and uploader meta data,
+				//the play buttons and fade in the error message
 				$('#playlist p').fadeOut(function(){
-				$(this).html(statusHTML).fadeIn();
-				
+					$('#uploader').hide();
+					$('.scLogo').hide();
+					$('.playButtonsWrapper').fadeOut();
+					$(this).html(statusHTML).fadeIn();
 			}); 
 			}//End if statement to check whether the response has a length 
 			
@@ -287,7 +288,7 @@ $('.soundCloudLogo').sticky({
 $('#mainLogo').hover(function(){
 	$(this).animate({
 		top: "0px",
-		left: "30px",
+		left: "40px",
 		fontSize: "80px",
 		width: "175px"
 	}, 700, function(){
