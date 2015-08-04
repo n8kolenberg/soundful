@@ -285,19 +285,22 @@ $('.soundCloudLogo').sticky({
 });
 
 //Main logo will go up once clicked on and the form will gain focus
+var flag = false;
 $('#mainLogo').hover(function(){
-	$(this).animate({
-		top: "0px",
-		left: "40px",
-		fontSize: "80px",
-		width: "175px"
-	}, 700, function(){
-		$('.instructions, #search-term').fadeIn(200, function(){
-		$('#query').focus();
-	})}//End nested animate function
-	); //End animate
-	
-}); //End on click
+	if(!flag) {
+		$(this).animate({
+			top: "0px",
+			left: "40px",
+			fontSize: "80px",
+			width: "175px"
+		}, 700, function(){
+			$('.instructions, #search-term').fadeIn(200, function(){
+			$('#query').focus();
+		})}//End nested animate function
+		); //End animate
+	flag = true;
+	} //End if statement
+}).end(); //End on hover
 
 
 
